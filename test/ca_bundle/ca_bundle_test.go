@@ -7,7 +7,6 @@ package ca_bundle
 
 import (
 	"context"
-	_ "embed"
 	"fmt"
 	"log"
 	"os"
@@ -42,32 +41,6 @@ const (
 	logfile              = "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log"
 )
 
-////go:embed resources/prometheus.yaml
-//var prometheusConfig string
-//
-//const prometheusMetrics = `prometheus_test_untyped{include="yes",prom_type="untyped"} 1
-//# TYPE prometheus_test_counter counter
-//prometheus_test_counter{include="yes",prom_type="counter"} 1
-//# TYPE prometheus_test_counter_exclude counter
-//prometheus_test_counter_exclude{include="no",prom_type="counter"} 1
-//# TYPE prometheus_test_gauge gauge
-//prometheus_test_gauge{include="yes",prom_type="gauge"} 500
-//# TYPE prometheus_test_summary summary
-//prometheus_test_summary_sum{include="yes",prom_type="summary"} 200
-//prometheus_test_summary_count{include="yes",prom_type="summary"} 50
-//prometheus_test_summary{include="yes",quantile="0",prom_type="summary"} 0.1
-//prometheus_test_summary{include="yes",quantile="0.5",prom_type="summary"} 0.25
-//prometheus_test_summary{include="yes",quantile="1",prom_type="summary"} 5.5
-//# TYPE prometheus_test_histogram histogram
-//prometheus_test_histogram_sum{include="yes",prom_type="histogram"} 300
-//prometheus_test_histogram_count{include="yes",prom_type="histogram"} 75
-//prometheus_test_histogram_bucket{include="yes",le="0",prom_type="histogram"} 1
-//prometheus_test_histogram_bucket{include="yes",le="0.5",prom_type="histogram"} 2
-//prometheus_test_histogram_bucket{include="yes",le="2.5",prom_type="histogram"} 3
-//prometheus_test_histogram_bucket{include="yes",le="5",prom_type="histogram"} 4
-//prometheus_test_histogram_bucket{include="yes",le="+Inf",prom_type="histogram"} 5
-//`
-
 type input struct {
 	findTarget        bool
 	commonConfigInput string
@@ -90,20 +63,17 @@ func TestBundle(t *testing.T) {
 		//Use the system pem ca bundle  + local stack pem file ssl should connect thus target string not found
 		{commonConfigInput: "resources/with/combine/", agentConfigInput: "resources/https/", findTarget: false, testType: "metric"},
 		{commonConfigInput: "resources/with/combine/", agentConfigInput: "resources/https/", findTarget: false, testType: "emf"},
-		//{commonConfigInput: "resources/with/combine/", agentConfigInput: "resources/https/", findTarget: false, testType: "prometheus"},
 		//Do not look for ca bundle with http connection should connect thus target string not found
 		{commonConfigInput: "resources/without/", agentConfigInput: "resources/http/", findTarget: false, testType: "metric"},
 		{commonConfigInput: "resources/without/", agentConfigInput: "resources/http/", findTarget: false, testType: "emf"},
-		//{commonConfigInput: "resources/without/", agentConfigInput: "resources/http/", findTarget: false, testType: "prometheus"},
 		//Use the system pem ca bundle ssl should not connect thus target string found
 		{commonConfigInput: "resources/with/original/", agentConfigInput: "resources/https/", findTarget: true, testType: "metric"},
 		{commonConfigInput: "resources/with/original/", agentConfigInput: "resources/https/", findTarget: true, testType: "emf"},
-		//{commonConfigInput: "resources/with/original/", agentConfigInput: "resources/https/", findTarget: true, testType: "prometheus"},
 		//Do not look for ca bundle should not connect thus target string found
 		{commonConfigInput: "resources/without/", agentConfigInput: "resources/https/", findTarget: true, testType: "metric"},
 		{commonConfigInput: "resources/without/", agentConfigInput: "resources/https/", findTarget: true, testType: "emf"},
-		//{commonConfigInput: "resources/without/", agentConfigInput: "resources/https/", findTarget: true, testType: "prometheus"},
 	}
+
 	for _, parameter := range parameters {
 		//before test run
 		configFile := parameter.agentConfigInput + parameter.testType + configJSON
