@@ -85,13 +85,6 @@ func TestBundle(t *testing.T) {
 	metadata := environment.GetEnvironmentMetaData()
 	t.Logf("metadata required for test cwa sha %s bucket %s ca cert path %s", metadata.CwaCommitSha, metadata.Bucket, metadata.CaCertPath)
 	setUpLocalstackConfig(metadata)
-	//caCert, err := ioutil.ReadFile("/tmp/combine.pem")
-	//if err != nil {
-	//	t.Fatalf("Failed to load the CA certificate: %v", err)
-	//}
-	//
-	//caCertPool := x509.NewCertPool()
-	//caCertPool.AppendCertsFromPEM(caCert)
 
 	parameters := []input{
 		//Use the system pem ca bundle  + local stack pem file ssl should connect thus target string not found
@@ -111,18 +104,6 @@ func TestBundle(t *testing.T) {
 		{commonConfigInput: "resources/without/", agentConfigInput: "resources/https/", findTarget: true, testType: "emf"},
 		//{commonConfigInput: "resources/without/", agentConfigInput: "resources/https/", findTarget: true, testType: "prometheus"},
 	}
-	//t.Logf("setup for prometheus before agent run done")
-	//startPrometheusCommands := []string{
-	//	fmt.Sprintf("cat <<EOF | sudo tee /tmp/prometheus_config.yaml\n%s\nEOF", prometheusConfig),
-	//	fmt.Sprintf("cat <<EOF | sudo tee /tmp/metrics\n%s\nEOF", prometheusMetrics),
-	//	"sudo python3 -m http.server 8101 --directory /tmp &> /dev/null &",
-	//}
-	//t.Logf("Started the running premethius commands")
-	//err := common.RunCommands(startPrometheusCommands)
-	//if err != nil {
-	//	t.Errorf("Premethius run cmd failed setup failed : %s", err)
-	//}
-	//t.Logf("finished the running premethius commands")
 	for _, parameter := range parameters {
 		//before test run
 		configFile := parameter.agentConfigInput + parameter.testType + configJSON
