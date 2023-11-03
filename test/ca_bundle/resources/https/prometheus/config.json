@@ -13,26 +13,24 @@
         "prometheus_config_path": "/tmp/prometheus_config.yaml",
         "emf_processor": {
           "metric_namespace": "WAB-CWAgent/Prometheus",
-          "metric_declaration": [
-            {
-              "source_labels": [
-                "include"
+          "metric_declaration": [{
+            "source_labels": [
+              "include"
+            ],
+            "label_matcher": "^yes$",
+            "dimensions": [
+              [
+                "prom_type"
               ],
-              "label_matcher": "^yes$",
-              "dimensions": [
-                [
-                  "prom_type"
-                ],
-                [
-                  "prom_type",
-                  "quantile"
-                ]
-              ],
-              "metric_selectors": [
-                "^prometheus_test*"
+              [
+                "prom_type",
+                "quantile"
               ]
-            }
-          ]
+            ],
+            "metric_selectors": [
+              "^prometheus_test*"
+            ]
+          }]
         }
       }
     },
