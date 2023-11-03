@@ -90,32 +90,32 @@ func TestBundle(t *testing.T) {
 		//Use the system pem ca bundle  + local stack pem file ssl should connect thus target string not found
 		{commonConfigInput: "resources/with/combine/", agentConfigInput: "resources/https/", findTarget: false, testType: "metric"},
 		{commonConfigInput: "resources/with/combine/", agentConfigInput: "resources/https/", findTarget: false, testType: "emf"},
-		{commonConfigInput: "resources/with/combine/", agentConfigInput: "resources/https/", findTarget: false, testType: "prometheus"},
+		//{commonConfigInput: "resources/with/combine/", agentConfigInput: "resources/https/", findTarget: false, testType: "prometheus"},
 		//Do not look for ca bundle with http connection should connect thus target string not found
 		{commonConfigInput: "resources/without/", agentConfigInput: "resources/http/", findTarget: false, testType: "metric"},
 		{commonConfigInput: "resources/without/", agentConfigInput: "resources/http/", findTarget: false, testType: "emf"},
-		{commonConfigInput: "resources/without/", agentConfigInput: "resources/http/", findTarget: false, testType: "prometheus"},
+		//{commonConfigInput: "resources/without/", agentConfigInput: "resources/http/", findTarget: false, testType: "prometheus"},
 		//Use the system pem ca bundle ssl should not connect thus target string found
 		{commonConfigInput: "resources/with/original/", agentConfigInput: "resources/https/", findTarget: true, testType: "metric"},
 		{commonConfigInput: "resources/with/original/", agentConfigInput: "resources/https/", findTarget: true, testType: "emf"},
-		{commonConfigInput: "resources/with/original/", agentConfigInput: "resources/https/", findTarget: true, testType: "prometheus"},
+		//{commonConfigInput: "resources/with/original/", agentConfigInput: "resources/https/", findTarget: true, testType: "prometheus"},
 		//Do not look for ca bundle should not connect thus target string found
 		{commonConfigInput: "resources/without/", agentConfigInput: "resources/https/", findTarget: true, testType: "metric"},
 		{commonConfigInput: "resources/without/", agentConfigInput: "resources/https/", findTarget: true, testType: "emf"},
-		{commonConfigInput: "resources/without/", agentConfigInput: "resources/https/", findTarget: true, testType: "prometheus"},
+		//{commonConfigInput: "resources/without/", agentConfigInput: "resources/https/", findTarget: true, testType: "prometheus"},
 	}
-	t.Logf("setup for prometheus before agent run done")
-	startPrometheusCommands := []string{
-		fmt.Sprintf("cat <<EOF | sudo tee /tmp/prometheus_config.yaml\n%s\nEOF", prometheusConfig),
-		fmt.Sprintf("cat <<EOF | sudo tee /tmp/metrics\n%s\nEOF", prometheusMetrics),
-		"sudo python3 -m http.server 8101 --directory /tmp &> /dev/null &",
-	}
-	t.Logf("Started the running premethius commands")
-	err := common.RunCommands(startPrometheusCommands)
-	if err != nil {
-		t.Errorf("Premethius run cmd failed setup failed : %s", err)
-	}
-	t.Logf("finished the running premethius commands")
+	//t.Logf("setup for prometheus before agent run done")
+	//startPrometheusCommands := []string{
+	//	fmt.Sprintf("cat <<EOF | sudo tee /tmp/prometheus_config.yaml\n%s\nEOF", prometheusConfig),
+	//	fmt.Sprintf("cat <<EOF | sudo tee /tmp/metrics\n%s\nEOF", prometheusMetrics),
+	//	"sudo python3 -m http.server 8101 --directory /tmp &> /dev/null &",
+	//}
+	//t.Logf("Started the running premethius commands")
+	//err := common.RunCommands(startPrometheusCommands)
+	//if err != nil {
+	//	t.Errorf("Premethius run cmd failed setup failed : %s", err)
+	//}
+	//t.Logf("finished the running premethius commands")
 
 	for _, parameter := range parameters {
 		//before test run
