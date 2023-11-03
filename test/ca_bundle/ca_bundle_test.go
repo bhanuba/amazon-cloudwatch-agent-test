@@ -7,7 +7,9 @@ package ca_bundle
 
 import (
 	"context"
+	"crypto/x509"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"strings"
@@ -58,6 +60,13 @@ func TestBundle(t *testing.T) {
 	metadata := environment.GetEnvironmentMetaData()
 	t.Logf("metadata required for test cwa sha %s bucket %s ca cert path %s", metadata.CwaCommitSha, metadata.Bucket, metadata.CaCertPath)
 	setUpLocalstackConfig(metadata)
+	caCert, err := ioutil.ReadFile("/tmp/combine.pem")
+	if err != nil {
+		t.Fatalf("Failed to load the CA certificate: %v", err)
+	}
+
+	caCertPool := x509.NewCertPool()
+	caCertPool.AppendCertsFromPEM(caCert)
 
 	parameters := []input{
 		//Use the system pem ca bundle  + local stack pem file ssl should connect thus target string not found
