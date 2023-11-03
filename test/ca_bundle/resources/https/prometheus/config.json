@@ -5,7 +5,7 @@
     "metrics_collection_interval": 50
   },
   "logs": {
-    "endpoint_override": "http://localhost.localstack.cloud:4566",
+    "endpoint_override": "https://localhost.localstack.cloud:4566",
     "metrics_collected": {
       "prometheus": {
         "cluster_name": "Cluster2-Monitoring",
