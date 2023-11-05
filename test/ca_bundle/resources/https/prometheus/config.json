@@ -1,26 +1,41 @@
 {
   "agent": {
-    "metrics_collection_interval": 10,
-    "run_as_user": "root",
-    "debug": true
+    "region": "us-west-2a",
+    "debug": true,
+    "metrics_collection_interval": 50
   },
-  "metrics": {
+  "logs": {
     "endpoint_override": "https://localhost.localstack.cloud:4566",
     "metrics_collected": {
-      "disk": {
-        "measurement": [
-          "used_percent"
-        ],
-        "resources": [
-          "*"
-        ]
-      },
-      "mem": {
-        "measurement": [
-          "mem_used_percent"
-        ]
+      "prometheus": {
+        "cluster_name": "Cluster2-Monitoring",
+        "log_group_name": "/wab/prometheus/cwagent-prometheus",
+        "prometheus_config_path": "/tmp/prometheus_config.yaml",
+        "emf_processor": {
+          "metric_namespace": "WAB-CWAgent/Prometheus",
+          "metric_declaration": [
+            {
+              "source_labels": [
+                "include"
+              ],
+              "label_matcher": "^yes$",
+              "dimensions": [
+                [
+                  "prom_type"
+                ],
+                [
+                  "prom_type",
+                  "quantile"
+                ]
+              ],
+              "metric_selectors": [
+                "^prometheus_test*"
+              ]
+            }
+          ]
+        }
       }
     },
-    "force_flush_interval": 10
+    "force_flush_interval": 55
   }
 }
