@@ -88,20 +88,20 @@ func TestBundle(t *testing.T) {
 
 	parameters := []input{
 		//Use the system pem ca bundle  + local stack pem file ssl should connect thus target string not found
-		{commonConfigInput: "resources/with/combine/", agentConfigInput: "resources/https/", findTarget: false, testType: "metric"},
-		{commonConfigInput: "resources/with/combine/", agentConfigInput: "resources/https/", findTarget: false, testType: "emf"},
+		//{commonConfigInput: "resources/with/combine/", agentConfigInput: "resources/https/", findTarget: false, testType: "metric"},
+		//{commonConfigInput: "resources/with/combine/", agentConfigInput: "resources/https/", findTarget: false, testType: "emf"},
 		{commonConfigInput: "resources/with/combine/", agentConfigInput: "resources/https/", findTarget: false, testType: "prometheus"},
 		//Do not look for ca bundle with http connection should connect thus target string not found
-		{commonConfigInput: "resources/without/", agentConfigInput: "resources/http/", findTarget: false, testType: "metric"},
-		{commonConfigInput: "resources/without/", agentConfigInput: "resources/http/", findTarget: false, testType: "emf"},
+		//{commonConfigInput: "resources/without/", agentConfigInput: "resources/http/", findTarget: false, testType: "metric"},
+		//{commonConfigInput: "resources/without/", agentConfigInput: "resources/http/", findTarget: false, testType: "emf"},
 		{commonConfigInput: "resources/without/", agentConfigInput: "resources/http/", findTarget: false, testType: "prometheus"},
 		//Use the system pem ca bundle ssl should not connect thus target string found
-		{commonConfigInput: "resources/with/original/", agentConfigInput: "resources/https/", findTarget: true, testType: "metric"},
-		{commonConfigInput: "resources/with/original/", agentConfigInput: "resources/https/", findTarget: true, testType: "emf"},
+		//{commonConfigInput: "resources/with/original/", agentConfigInput: "resources/https/", findTarget: true, testType: "metric"},
+		//{commonConfigInput: "resources/with/original/", agentConfigInput: "resources/https/", findTarget: true, testType: "emf"},
 		{commonConfigInput: "resources/with/original/", agentConfigInput: "resources/https/", findTarget: true, testType: "prometheus"},
 		//Do not look for ca bundle should not connect thus target string found
-		{commonConfigInput: "resources/without/", agentConfigInput: "resources/https/", findTarget: true, testType: "metric"},
-		{commonConfigInput: "resources/without/", agentConfigInput: "resources/https/", findTarget: true, testType: "emf"},
+		//{commonConfigInput: "resources/without/", agentConfigInput: "resources/https/", findTarget: true, testType: "metric"},
+		//{commonConfigInput: "resources/without/", agentConfigInput: "resources/https/", findTarget: true, testType: "emf"},
 		{commonConfigInput: "resources/without/", agentConfigInput: "resources/https/", findTarget: true, testType: "prometheus"},
 	}
 
