@@ -36,6 +36,6 @@
         }
       }
     },
-    "force_flush_interval": 55
+    "force_flush_interval": 30
   }
 }
