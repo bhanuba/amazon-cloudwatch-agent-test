@@ -2,7 +2,7 @@
   "agent": {
     "region": "us-west-2a",
     "debug": true,
-    "metrics_collection_interval": 40
+    "metrics_collection_interval": 30
   },
   "logs": {
     "endpoint_override": "http://localhost.localstack.cloud:4566",
